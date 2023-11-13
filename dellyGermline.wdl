@@ -12,7 +12,7 @@ struct dellyResources {
     String dellyExclude
 }
 
-workflow jointDellyGermline {
+workflow dellyGermline {
   input {
     String reference
     Array[inputSamples] inputSamples
