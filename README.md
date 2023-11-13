@@ -1,4 +1,4 @@
-# jointDellyGermline
+# dellyGermline
 
 Joint germline structural variant calling using Delly
 
