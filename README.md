@@ -70,17 +70,17 @@ Output | Type | Description
  
  ```
      set -eu -o pipefail
-     bcftools merge -m id -O b -o MERGED_GENOTYPED_VCF GENOTYPED_VCFS
+     bcftools merge -m id -O b -o MERGED_GENOTYPED_BCF GENOTYPED_VCFS
    ```
  
- === Apply Germline Filter to Merged VCF ===.
+ === Apply Germline Filter to Merged BCF ===.
  
  ```
      set -eu -o pipefail
      #Index
-     bcftools index MERGED_GENOTYPED_VCF
+     bcftools index MERGED_GENOTYPED_BCF
      #Merge
-     delly filter -f germline -o GERMLINE_VCF MERGED_GENOTYPED_VCF
+     delly filter -f germline -o GERMLINE_VCF MERGED_GENOTYPED_BCF
    ```
  ## Support
 
