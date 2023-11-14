@@ -120,8 +120,8 @@ task mergeSVSites{
   input {
     Array[File] inputVcfs
     String modules
-    Int jobMemory = 24 
-    Int timeout = 24
+    Int jobMemory = 12 
+    Int timeout = 12
   }
 
   parameter_meta {
@@ -156,8 +156,8 @@ task genotype{
     String modules
     String referenceGenome
     String dellyExclude
-    Int jobMemory = 24 
-    Int timeout = 24
+    Int jobMemory = 12 
+    Int timeout = 12
   }
 
   parameter_meta {
@@ -195,8 +195,8 @@ task mergeSamples{
     Array[File] genotypedBcfFiles
     Array[File] genotypedBcfIndexes
     String modules
-    Int jobMemory = 24 
-    Int timeout = 24
+    Int jobMemory = 12 
+    Int timeout = 12
   }
 
   parameter_meta {
@@ -229,8 +229,8 @@ task filter{
   input {
     File mergedBcf
     String modules
-    Int jobMemory = 24 
-    Int timeout = 24
+    Int jobMemory = 12 
+    Int timeout = 12
   }
 
   parameter_meta {
