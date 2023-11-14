@@ -7,24 +7,24 @@ This section lists command(s) run by the dellyGermline workflow
 
 ```
     set -eu -o pipefail
-    delly merge -o MERGED_SITES_VCF INPUT_VCFS
+    delly merge -o MERGED_SITES_BCF INPUT_VCFS
   ```
 
 === Genotype Samples Across Merged SV Sites ===.
 
 ```
     set -eu -o pipefail
-    delly call -g REFERENCE_GENOME -v MERGED_SITES_VCF -o GENOTYPED_VCF -x DELLY_EXCLUDE INPUT_BAMS
+    delly call -g REFERENCE_GENOME -v MERGED_SITES_BCF -o GENOTYPED_BCF -x DELLY_EXCLUDE INPUT_BAMS
   ```
 
 === Merge Genotyped Samples into Single BCF ===.
 
 ```
     set -eu -o pipefail
-    bcftools merge -m id -O b -o MERGED_GENOTYPED_BCF GENOTYPED_VCFS
+    bcftools merge -m id -O b -o MERGED_GENOTYPED_BCF GENOTYPED_BCFS
   ```
 
-=== Apply Germline Filter to Merged BCF ===.
+=== Apply Germline Filter to Merged BCF and Convert to VCF ===.
 
 ```
     set -eu -o pipefail
@@ -32,4 +32,6 @@ This section lists command(s) run by the dellyGermline workflow
     bcftools index MERGED_GENOTYPED_BCF
     #Merge
     delly filter -f germline -o GERMLINE_VCF MERGED_GENOTYPED_BCF
+    #Convert to BCF
+    bcftools view -O v -o GERMLINE_VCF GERMLINE_BCF
   ```
