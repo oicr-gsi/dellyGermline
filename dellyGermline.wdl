@@ -220,7 +220,7 @@ task mergeSamples{
   }
 
   output {
-    File mergedVcf = "merged.geno.bcf"
+    File mergedBcf = "merged.geno.bcf"
   }
 }
 
