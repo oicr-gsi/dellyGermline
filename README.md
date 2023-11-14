@@ -66,7 +66,7 @@ Output | Type | Description
      delly call -g REFERENCE_GENOME -v MERGED_SITES_VCF -o GENOTYPED_VCF -x DELLY_EXCLUDE INPUT_BAMS
    ```
  
- === Merge Genotyped Samples into Single VCF ===.
+ === Merge Genotyped Samples into Single BCF ===.
  
  ```
      set -eu -o pipefail
