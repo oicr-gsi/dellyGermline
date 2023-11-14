@@ -79,7 +79,7 @@ workflow dellyGermline {
 
   call filter {
     input:
-      mergedVcf = mergeSamples.mergedVcf,
+      mergedVcf = mergeSamples.mergedBcf,
       modules = resources[reference].modules
   }
 
@@ -210,7 +210,7 @@ task mergeSamples{
   command <<<
     set -eu -o pipefail
     #Merge all genotyped samples to get a single VCF/BCF using bcftools merge
-    bcftools merge -m id -O v -o merged.geno.vcf ~{sep = " " genotypedVcfFiles}
+    bcftools merge -m id -O b -o merged.geno.bcf ~{sep = " " genotypedVcfFiles}
   >>>
 
   runtime {
@@ -220,21 +220,21 @@ task mergeSamples{
   }
 
   output {
-    File mergedVcf = "merged.geno.vcf"
+    File mergedVcf = "merged.geno.bcf"
   }
 }
 
 
 task filter{
   input {
-    File mergedVcf
+    File mergedBcf
     String modules
     Int jobMemory = 24 
     Int timeout = 24
   }
 
   parameter_meta {
-    mergedVcf: "Merged vcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
+    mergedBcf: "Merged vcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
     modules: "modules needed to run Delly"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
@@ -243,9 +243,9 @@ task filter{
   command <<<
     set -eu -o pipefail
     #Index
-    bcftools index ~{mergedVcf}
+    bcftools index ~{mergedBcf}
     #Merge
-    delly filter -f germline -o germline.vcf ~{mergedVcf}
+    delly filter -f germline -o germline.vcf ~{mergedBcf}
   >>>
 
   runtime {
