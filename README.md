@@ -24,7 +24,7 @@ java -jar cromwell.jar run dellyGermline.wdl --inputs inputs.json
 Parameter|Value|Description
 ---|---|---
 `reference`|String|The genome reference build. for example: hg19, hg38
-`inputSamples`|Array[inputSamples]|Collection of BAM, BAI, and BCF files for >= 20 samples
+`inputSamples`|Array[inputSamples]|Collection of BAM, BAI, and VCF files for >= 20 samples
 
 
 #### Optional task parameters:
@@ -44,7 +44,7 @@ Parameter|Value|Default|Description
 
 Output | Type | Description
 ---|---|---
-`germlineBcf`|File|filtered bcf file containing PASS structural variant calls
+`germlineVcf`|File|filtered vcf file containing PASS structural variant calls
 
 
 ## Commands
@@ -56,31 +56,31 @@ Output | Type | Description
  
  ```
      set -eu -o pipefail
-     delly merge -o MERGED_SITES_BCF INPUT_BCFS
+     delly merge -o MERGED_SITES_VCF INPUT_VCFS
    ```
  
  === Genotype Samples Across Merged SV Sites ===.
  
  ```
      set -eu -o pipefail
-     delly call -g REFERENCE_GENOME -v MERGED_SITES_BCF -o GENOTYPED_BCF -x DELLY_EXCLUDE INPUT_BAMS
+     delly call -g REFERENCE_GENOME -v MERGED_SITES_VCF -o GENOTYPED_VCF -x DELLY_EXCLUDE INPUT_BAMS
    ```
  
- === Merge Genotyped Samples into Single BCF ===.
+ === Merge Genotyped Samples into Single VCF ===.
  
  ```
      set -eu -o pipefail
-     bcftools merge -m id -O b -o MERGED_GENOTYPED_BCF GENOTYPED_BCFS
+     bcftools merge -m id -O b -o MERGED_GENOTYPED_VCF GENOTYPED_VCFS
    ```
  
- === Apply Germline Filter to Merged BCF ===.
+ === Apply Germline Filter to Merged VCF ===.
  
  ```
      set -eu -o pipefail
      #Index
-     bcftools index MERGED_GENOTYPED_BCF
+     bcftools index MERGED_GENOTYPED_VCF
      #Merge
-     delly filter -f germline -o GERMLINE_BCF MERGED_GENOTYPED_BCF
+     delly filter -f germline -o GERMLINE_VCF MERGED_GENOTYPED_VCF
    ```
  ## Support
 
