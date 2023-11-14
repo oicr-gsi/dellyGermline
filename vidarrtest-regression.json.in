@@ -101,7 +101,7 @@
             "dellyGermline.mergeSamples.modules": null,
             "dellyGermline.mergeSamples.jobMemory": null,
             "dellyGermline.mergeSamples.timeout": null,
-            "dellyGermline.filter.mergedVcf": null,
+            "dellyGermline.filter.mergedBcf": null,
             "dellyGermline.filter.modules": null,
             "dellyGermline.filter.jobMemory": null,
             "dellyGermline.filter.timeout": null
