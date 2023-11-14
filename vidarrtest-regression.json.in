@@ -31,9 +31,9 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "bcf": {
+                    "vcf": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.bcf",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.vcf",
                             "externalIds": [
                                 {
                                     "id": "DESP_00023",
@@ -68,9 +68,9 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "bcf": {
+                    "vcf": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bcf",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.vcf",
                             "externalIds": [
                                 {
                                     "id": "DESP_00353",
@@ -82,11 +82,11 @@
                     }                    
                 }                
             ],
-            "dellyGermline.mergeSVSites.inputBcfs": null,
+            "dellyGermline.mergeSVSites.inputVcfs": null,
             "dellyGermline.mergeSVSites.modules": null,
             "dellyGermline.mergeSVSites.jobMemory": null,
             "dellyGermline.mergeSVSites.timeout": null,
-            "dellyGermline.genotype.mergedBcf": null,
+            "dellyGermline.genotype.mergedVcf": null,
             "dellyGermline.genotype.inputBam": null,
             "dellyGermline.genotype.inputBamIndex": null,
             "dellyGermline.genotype.outputFileNamePrefix": null,
@@ -95,12 +95,12 @@
             "dellyGermline.genotype.dellyExclude": null,
             "dellyGermline.genotype.jobMemory": null,
             "dellyGermline.genotype.timeout": null,
-            "dellyGermline.mergeSamples.genotypedBcfFiles": null,
-            "dellyGermline.mergeSamples.genotypedBcfIndexes": null,
+            "dellyGermline.mergeSamples.genotypedVcfFiles": null,
+            "dellyGermline.mergeSamples.genotypedVcfIndexes": null,
             "dellyGermline.mergeSamples.modules": null,
             "dellyGermline.mergeSamples.jobMemory": null,
             "dellyGermline.mergeSamples.timeout": null,
-            "dellyGermline.filter.mergedBcf": null,
+            "dellyGermline.filter.mergedVcf": null,
             "dellyGermline.filter.modules": null,
             "dellyGermline.filter.jobMemory": null,
             "dellyGermline.filter.timeout": null
@@ -112,7 +112,7 @@
         },
         "id": "DESP_Samples",
         "metadata": {
-            "dellyGermline.germlineBcf": {
+            "dellyGermline.germlineVcf": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dellyGermline_DESP_Samples_@JENKINSID@"
