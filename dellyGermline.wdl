@@ -3,7 +3,7 @@ version 1.0
 struct inputSamples {
   File bam
   File bai
-  File bcf
+  File vcf
 }
 
 struct dellyResources {
@@ -20,7 +20,7 @@ workflow dellyGermline {
 
   parameter_meta {
     reference: "The genome reference build. for example: hg19, hg38"
-    inputSamples: "Collection of BAM, BAI, and BCF files for >= 20 samples"
+    inputSamples: "Collection of BAM, BAI, and VCF files for >= 20 samples"
   }
 
   Map[String,dellyResources] resources = {
@@ -40,14 +40,14 @@ workflow dellyGermline {
   scatter(s in inputSamples) {
     String inputBams = "~{s.bam}"
     String inputBamIndexes = "~{s.bai}"
-    String inputBcfs = "~{s.bcf}"
+    String inputVcfs = "~{s.vcf}"
   }
 
 
   #Merge SV sites for each sample
   call mergeSVSites {
     input:
-      inputBcfs = inputBcfs,
+      inputVcfs = inputVcfs,
       modules = resources[reference].modules
   }
 
@@ -58,7 +58,7 @@ workflow dellyGermline {
     # Genotype SVs for each sample
     call genotype {
       input:
-        mergedBcf = mergeSVSites.mergedBcf,
+        mergedVcf = mergeSVSites.mergedVcf,
         inputBam = inputBams[sampleIndex],
         inputBamIndex = inputBamIndexes[sampleIndex],
         outputFileNamePrefix = sampleName,
@@ -71,15 +71,15 @@ workflow dellyGermline {
 
   call mergeSamples {
     input:
-      genotypedBcfFiles = genotype.genoBcf,
-      genotypedBcfIndexes = genotype.genoBcfIndex, 
+      genotypedVcfFiles = genotype.genoVcf,
+      genotypedVcfIndexes = genotype.genoVcfIndex, 
       modules = resources[reference].modules
   }
 
 
   call filter {
     input:
-      mergedBcf = mergeSamples.mergedBcf,
+      mergedVcf = mergeSamples.mergedVcf,
       modules = resources[reference].modules
   }
 
@@ -104,13 +104,13 @@ workflow dellyGermline {
       }
     ]
     output_meta: {
-      germlineBcf: "filtered bcf file containing PASS structural variant calls"
+      germlineVcf: "filtered vcf file containing PASS structural variant calls"
     }
   }
 
 
   output {
-    File germlineBcf = filter.germlineBcf
+    File germlineVcf = filter.germlineVcf
   }
 
 }
@@ -118,14 +118,14 @@ workflow dellyGermline {
 
 task mergeSVSites{
   input {
-    Array[File] inputBcfs
+    Array[File] inputVcfs
     String modules
     Int jobMemory = 24 
     Int timeout = 24
   }
 
   parameter_meta {
-    inputBcfs: "Array of bcf files"
+    inputVcfs: "Array of vcf files"
     modules: "modules needed to run Delly"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
@@ -133,7 +133,7 @@ task mergeSVSites{
 
   command <<<
     set -eu -o pipefail
-    delly merge -o merged.sites.bcf ~{sep = " " inputBcfs}
+    delly merge -o merged.sites.vcf ~{sep = " " inputVcfs}
   >>>
 
   runtime {
@@ -143,13 +143,13 @@ task mergeSVSites{
   }
 
   output {
-    File mergedBcf = "merged.sites.bcf"
+    File mergedVcf = "merged.sites.vcf"
   }
 }
 
 task genotype{
   input {
-    File mergedBcf
+    File mergedVcf
     File inputBam
     File inputBamIndex
     String outputFileNamePrefix
@@ -161,7 +161,7 @@ task genotype{
   }
 
   parameter_meta {
-    mergedBcf: "Merged bcf file from >=20 unrelated samples"
+    mergedVcf: "Merged vcf file from >=20 unrelated samples"
     inputBam: "bam file to be genotyped"
     inputBamIndex: "index file for bam that will be genotyped"
     outputFileNamePrefix: "sample ID, this is provided to maivs and cannot include reseerved characters [;,_\\s] "
@@ -174,7 +174,7 @@ task genotype{
 
   command <<<
     set -eu -o pipefail
-    delly call -g ~{referenceGenome} -v ~{mergedBcf} -o ~{outputFileNamePrefix}.geno.bcf -x ~{dellyExclude} ~{inputBam}
+    delly call -g ~{referenceGenome} -v ~{mergedVcf} -o ~{outputFileNamePrefix}.geno.vcf -x ~{dellyExclude} ~{inputBam}
   >>>
 
   runtime {
@@ -184,24 +184,24 @@ task genotype{
   }
 
     output {
-    File genoBcf = "~{outputFileNamePrefix}.geno.bcf"
-    File genoBcfIndex = "~{outputFileNamePrefix}.geno.bcf.csi"
+    File genoVcf = "~{outputFileNamePrefix}.geno.vcf"
+    File genoVcfIndex = "~{outputFileNamePrefix}.geno.vcf.csi"
   }
 }
 
 
 task mergeSamples{
   input { 
-    Array[File] genotypedBcfFiles
-    Array[File] genotypedBcfIndexes
+    Array[File] genotypedVcfFiles
+    Array[File] genotypedVcfIndexes
     String modules
     Int jobMemory = 24 
     Int timeout = 24
   }
 
   parameter_meta {
-    genotypedBcfFiles: "Array of bcf files that have gone through Delly's genotype filter"
-    genotypedBcfIndexes: "Array of index files for bcfs that have one through Delly's genotype filter"
+    genotypedVcfFiles: "Array of vcf files that have gone through Delly's genotype filter"
+    genotypedVcfIndexes: "Array of index files for vcfs that have one through Delly's genotype filter"
     modules: "modules needed to run Delly"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
@@ -210,7 +210,7 @@ task mergeSamples{
   command <<<
     set -eu -o pipefail
     #Merge all genotyped samples to get a single VCF/BCF using bcftools merge
-    bcftools merge -m id -O b -o merged.geno.bcf ~{sep = " " genotypedBcfFiles}
+    bcftools merge -m id -O v -o merged.geno.vcf ~{sep = " " genotypedVcfFiles}
   >>>
 
   runtime {
@@ -220,21 +220,21 @@ task mergeSamples{
   }
 
   output {
-    File mergedBcf = "merged.geno.bcf"
+    File mergedVcf = "merged.geno.vcf"
   }
 }
 
 
 task filter{
   input {
-    File mergedBcf
+    File mergedVcf
     String modules
     Int jobMemory = 24 
     Int timeout = 24
   }
 
   parameter_meta {
-    mergedBcf: "Merged bcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
+    mergedVcf: "Merged vcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
     modules: "modules needed to run Delly"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
@@ -243,9 +243,9 @@ task filter{
   command <<<
     set -eu -o pipefail
     #Index
-    bcftools index ~{mergedBcf}
+    bcftools index ~{mergedVcf}
     #Merge
-    delly filter -f germline -o germline.bcf ~{mergedBcf}
+    delly filter -f germline -o germline.vcf ~{mergedVcf}
   >>>
 
   runtime {
@@ -255,6 +255,6 @@ task filter{
   }
 
   output {
-    File germlineBcf = "germline.bcf"
+    File germlineVcf = "germline.vcf"
   }
 }
