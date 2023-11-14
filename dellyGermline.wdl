@@ -244,8 +244,10 @@ task filter{
     set -eu -o pipefail
     #Index
     bcftools index ~{mergedBcf}
+    #Convert to vcf
+    bcftools view -O v -o merged.geno.vcf ~{mergedBcf}
     #Merge
-    delly filter -f germline -o germline.vcf ~{mergedBcf}
+    delly filter -f germline -o germline.vcf merged.geno.vcf
   >>>
 
   runtime {
