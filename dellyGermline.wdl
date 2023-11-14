@@ -79,7 +79,7 @@ workflow dellyGermline {
 
   call filter {
     input:
-      mergedVcf = mergeSamples.mergedBcf,
+      mergedBcf = mergeSamples.mergedBcf,
       modules = resources[reference].modules
   }
 
