@@ -1,1 +1,133 @@
-
+[
+    {
+        "arguments": {
+            "dellyGermline.modules": null,
+            "dellyGermline.referenceGenome": null,
+            "dellyGermline.dellyExclude": null,
+            "dellyGermline.reference": "hg38",
+            "dellyGermline.inputSamples": [
+                {
+                    "bam": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.bam",
+                            "externalIds": [
+                                {
+                                    "id": "DESP_00023",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bai": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.bai",
+                            "externalIds": [
+                                {
+                                    "id": "DESP_00023",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bcf": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.bcf",
+                            "externalIds": [
+                                {
+                                    "id": "DESP_00023",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    }                    
+                },
+                    "bam": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bam",
+                            "externalIds": [
+                                {
+                                    "id": "DESP_00353",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bai": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bai",
+                            "externalIds": [
+                                {
+                                    "id": "DESP_00353",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bcf": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bcf",
+                            "externalIds": [
+                                {
+                                    "id": "DESP_00353",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    }                    
+                }                
+            ],
+            "dellyGermline.mergeSVSites.inputBcfs": null,
+            "dellyGermline.mergeSVSites.modules": null,
+            "dellyGermline.mergeSVSites.jobMemory": null,
+            "dellyGermline.mergeSVSites.timeout": null,
+            "dellyGermline.genotype.mergedBcf": null,
+            "dellyGermline.genotype.inputBam": null,
+            "dellyGermline.genotype.inputBamIndex": null,
+            "dellyGermline.genotype.outputFileNamePrefix": null,
+            "dellyGermline.genotype.modules": null,
+            "dellyGermline.genotype.referenceGenome": null,
+            "dellyGermline.genotype.dellyExclude": null,
+            "dellyGermline.genotype.jobMemory": null,
+            "dellyGermline.genotype.timeout": null,
+            "dellyGermline.mergeSamples.genotypedBcfFiles": null,
+            "dellyGermline.mergeSamples.genotypedBcfIndexes": null,
+            "dellyGermline.mergeSamples.modules": null,
+            "dellyGermline.mergeSamples.jobMemory": null,
+            "dellyGermline.mergeSamples.timeout": null,
+            "dellyGermline.filter.mergedBcf": null,
+            "dellyGermline.filter.modules": null,
+            "dellyGermline.filter.jobMemory": null,
+            "dellyGermline.filter.timeout": null
+        },
+        "description": "dellyGermline workflow test",
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
+        "id": "DESP_Samples",
+        "metadata": {
+            "dellyGermline.germlineBcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dellyGermline_DESP_Samples_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            }
+        },
+        "validators": [
+            {
+                "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
+                "metrics_compare": "@CHECKOUT@/tests/compare.sh",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/DESP_Samples.metrics.txt",
+                "type": "script"
+            }
+        ]
+    }
+]
