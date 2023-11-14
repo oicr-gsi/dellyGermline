@@ -1,2 +1,2 @@
-## 1.0.0   - 2023-07-26
- - Premature tag
+## 1.0.0   - 2023-11-14
+ - Initial release
