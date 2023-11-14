@@ -44,6 +44,7 @@
                         "type": "EXTERNAL"
                     }                    
                 },
+                {
                     "bam": {
                         "contents": {
                             "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bam",
