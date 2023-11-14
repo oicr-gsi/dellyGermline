@@ -58,7 +58,7 @@ workflow dellyGermline {
     # Genotype SVs for each sample
     call genotype {
       input:
-        mergedVcf = mergeSVSites.mergedVcf,
+        mergedBcf = mergeSVSites.mergedBcf,
         inputBam = inputBams[sampleIndex],
         inputBamIndex = inputBamIndexes[sampleIndex],
         outputFileNamePrefix = sampleName,
@@ -71,8 +71,8 @@ workflow dellyGermline {
 
   call mergeSamples {
     input:
-      genotypedVcfFiles = genotype.genoVcf,
-      genotypedVcfIndexes = genotype.genoVcfIndex, 
+      genotypedBcfFiles = genotype.genoBcf,
+      genotypedBcfIndexes = genotype.genoBcfIndex, 
       modules = resources[reference].modules
   }
 
@@ -133,7 +133,7 @@ task mergeSVSites{
 
   command <<<
     set -eu -o pipefail
-    delly merge -o merged.sites.vcf -v ~{sep = " " inputVcfs}
+    delly merge -o merged.sites.bcf ~{sep = " " inputVcfs}
   >>>
 
   runtime {
@@ -143,13 +143,13 @@ task mergeSVSites{
   }
 
   output {
-    File mergedVcf = "merged.sites.vcf"
+    File mergedBcf = "merged.sites.bcf"
   }
 }
 
 task genotype{
   input {
-    File mergedVcf
+    File mergedBcf
     File inputBam
     File inputBamIndex
     String outputFileNamePrefix
@@ -161,7 +161,7 @@ task genotype{
   }
 
   parameter_meta {
-    mergedVcf: "Merged vcf file from >=20 unrelated samples"
+    mergedBcf: "Merged bcf file from >=20 unrelated samples"
     inputBam: "bam file to be genotyped"
     inputBamIndex: "index file for bam that will be genotyped"
     outputFileNamePrefix: "sample ID, this is provided to maivs and cannot include reseerved characters [;,_\\s] "
@@ -174,7 +174,7 @@ task genotype{
 
   command <<<
     set -eu -o pipefail
-    delly call -g ~{referenceGenome} -v ~{mergedVcf} -o ~{outputFileNamePrefix}.geno.vcf -x ~{dellyExclude} ~{inputBam}
+    delly call -g ~{referenceGenome} -v ~{mergedBcf} -o ~{outputFileNamePrefix}.geno.bcf -x ~{dellyExclude} ~{inputBam}
   >>>
 
   runtime {
@@ -184,24 +184,24 @@ task genotype{
   }
 
     output {
-    File genoVcf = "~{outputFileNamePrefix}.geno.vcf"
-    File genoVcfIndex = "~{outputFileNamePrefix}.geno.vcf.csi"
+    File genoBcf = "~{outputFileNamePrefix}.geno.bcf"
+    File genoBcfIndex = "~{outputFileNamePrefix}.geno.bcf.csi"
   }
 }
 
 
 task mergeSamples{
   input { 
-    Array[File] genotypedVcfFiles
-    Array[File] genotypedVcfIndexes
+    Array[File] genotypedBcfFiles
+    Array[File] genotypedBcfIndexes
     String modules
     Int jobMemory = 24 
     Int timeout = 24
   }
 
   parameter_meta {
-    genotypedVcfFiles: "Array of vcf files that have gone through Delly's genotype filter"
-    genotypedVcfIndexes: "Array of index files for vcfs that have one through Delly's genotype filter"
+    genotypedBcfFiles: "Array of bcf files that have gone through Delly's genotype filter"
+    genotypedBcfIndexes: "Array of index files for bcfs that have one through Delly's genotype filter"
     modules: "modules needed to run Delly"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
@@ -210,7 +210,7 @@ task mergeSamples{
   command <<<
     set -eu -o pipefail
     #Merge all genotyped samples to get a single VCF/BCF using bcftools merge
-    bcftools merge -m id -O b -o merged.geno.bcf ~{sep = " " genotypedVcfFiles}
+    bcftools merge -m id -O b -o merged.geno.bcf ~{sep = " " genotypedBcfFiles}
   >>>
 
   runtime {
@@ -234,7 +234,7 @@ task filter{
   }
 
   parameter_meta {
-    mergedBcf: "Merged vcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
+    mergedBcf: "Merged bcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
     modules: "modules needed to run Delly"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
@@ -245,7 +245,9 @@ task filter{
     #Index
     bcftools index ~{mergedBcf}
     #Merge
-    delly filter -f germline -o germline.vcf ~{mergedBcf}
+    delly filter -f germline -o germline.bcf ~{mergedBcf}
+    #Convert to BCF
+    bcftools view -O v -o germline.vcf germline.bcf
   >>>
 
   runtime {
