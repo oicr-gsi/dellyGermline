@@ -17,14 +17,14 @@ This section lists command(s) run by the dellyGermline workflow
     delly call -g REFERENCE_GENOME -v MERGED_SITES_VCF -o GENOTYPED_VCF -x DELLY_EXCLUDE INPUT_BAMS
   ```
 
-=== Merge Genotyped Samples into Single VCF ===.
+=== Merge Genotyped Samples into Single BCF ===.
 
 ```
     set -eu -o pipefail
     bcftools merge -m id -O b -o MERGED_GENOTYPED_BCF GENOTYPED_VCFS
   ```
 
-=== Apply Germline Filter to Merged VCF ===.
+=== Apply Germline Filter to Merged BCF ===.
 
 ```
     set -eu -o pipefail
