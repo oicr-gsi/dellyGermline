@@ -73,7 +73,7 @@ Output | Type | Description
      bcftools merge -m id -O b -o MERGED_GENOTYPED_BCF GENOTYPED_VCFS
    ```
  
- === Apply Germline Filter to Merged BCF ===.
+ === Apply Germline Filter to Merged BCF and Convert to VCF ===.
  
  ```
      set -eu -o pipefail
@@ -81,6 +81,8 @@ Output | Type | Description
      bcftools index MERGED_GENOTYPED_BCF
      #Merge
      delly filter -f germline -o GERMLINE_VCF MERGED_GENOTYPED_BCF
+     #Convert to BCF
+     bcftools view -O v -o GERMLINE_VCF GERMLINE_BCF
    ```
  ## Support
 
