@@ -126,7 +126,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/DESP_Samples.metrics.txt",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/1.0.0/DESP_Samples.metrics.txt",
                 "type": "script"
             }
         ]
