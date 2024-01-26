@@ -161,14 +161,14 @@ workflow dellyGermline {
       }
     ]
     output_meta: {
-      germlineSVVcf: "Filtered vcf file containing PASS structural variant calls",
+      germlineSVs: "Filtered vcf file containing PASS structural variant calls",
       germlineCNVs: "Filtered vcf file containing copy number variant calls"
     }
   }
 
 
   output {
-    File germlineSVVcf = filter.germlineSVVcf
+    File germlineSVs = filter.germlineSVVcf
     File germlineCNVs = cnvFilter.germlineCNVs
   }
 

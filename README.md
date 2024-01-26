@@ -59,7 +59,7 @@ Parameter|Value|Default|Description
 
 Output | Type | Description
 ---|---|---
-`germlineSVVcf`|File|Filtered vcf file containing PASS structural variant calls
+`germlineSVs`|File|Filtered vcf file containing PASS structural variant calls
 `germlineCNVs`|File|Filtered vcf file containing copy number variant calls
 
 
