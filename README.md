@@ -37,12 +37,12 @@ Parameter|Value|Default|Description
 ---|---|---|---
 `mergeSVSites.jobMemory`|Int|12|Memory allocated for this job
 `mergeSVSites.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`genotype.jobMemory`|Int|12|Memory allocated for this job
-`genotype.timeout`|Int|12|Timeout in hours, needed to override imposed limits
+`svGenotype.jobMemory`|Int|12|Memory allocated for this job
+`svGenotype.timeout`|Int|12|Timeout in hours, needed to override imposed limits
 `mergeSVSamples.jobMemory`|Int|12|Memory allocated for this job
 `mergeSVSamples.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`filter.jobMemory`|Int|12|Memory allocated for this job
-`filter.timeout`|Int|12|Timeout in hours, needed to override imposed limits
+`svFilter.jobMemory`|Int|12|Memory allocated for this job
+`svFilter.timeout`|Int|12|Timeout in hours, needed to override imposed limits
 `callCNV.jobMemory`|Int|12|Memory allocated for this job
 `callCNV.timeout`|Int|12|Timeout in hours, needed to override imposed limits
 `mergeCNVSites.jobMemory`|Int|12|Memory allocated for this job

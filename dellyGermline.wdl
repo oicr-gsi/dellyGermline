@@ -59,7 +59,7 @@ workflow dellyGermline {
     String sampleName = basename(inputBams[sampleIndex], ".bam")
 
     #Genotype SVs for each sample
-    call genotype {
+    call svGenotype {
       input:
         mergedBcf = mergeSVSites.mergedBcf,
         inputBam = inputBams[sampleIndex],
@@ -74,13 +74,13 @@ workflow dellyGermline {
 
   call mergeSamples as mergeSVSamples {
     input:
-      genotypedBcfFiles = genotype.genoBcf,
-      genotypedBcfIndexes = genotype.genoBcfIndex, 
+      genotypedBcfFiles = svGenotype.genoBcf,
+      genotypedBcfIndexes = svGenotype.genoBcfIndex, 
       modules = resources[reference].modules
   }
 
 
-  call filter {
+  call svFilter {
     input:
       mergedBcf = mergeSVSamples.mergedBcf,
       modules = resources[reference].modules
@@ -93,7 +93,7 @@ workflow dellyGermline {
       input:
         inputBam = inputBams[sampleIndex],
         inputBamIndex = inputBamIndexes[sampleIndex],
-        germlineSVBcf = filter.germlineSVBcf,
+        germlineSVBcf = svFilter.germlineSVBcf,
         outputFileNamePrefix = basename(inputBams[sampleIndex], ".bam"),
         modules = resources[reference].modules,
         referenceGenome = resources[reference].referenceGenome,
@@ -168,7 +168,7 @@ workflow dellyGermline {
 
 
   output {
-    File germlineSVs = filter.germlineSVVcf
+    File germlineSVs = svFilter.germlineSVVcf
     File germlineCNVs = cnvFilter.germlineCNVs
   }
 
@@ -207,7 +207,7 @@ task mergeSVSites{
 }
 
 
-task genotype{
+task svGenotype{
   input {
     File mergedBcf
     File inputBam
@@ -285,7 +285,7 @@ task mergeSamples{
 }
 
 
-task filter{
+task svFilter {
   input {
     File mergedBcf
     String modules
