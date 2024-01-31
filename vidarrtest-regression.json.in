@@ -4,6 +4,7 @@
             "dellyGermline.modules": null,
             "dellyGermline.referenceGenome": null,
             "dellyGermline.dellyExclude": null,
+            "dellyGermline.genomeMap": null,
             "dellyGermline.reference": "hg38",
             "dellyGermline.inputSamples": [
                 {
@@ -87,24 +88,55 @@
             "dellyGermline.mergeSVSites.modules": null,
             "dellyGermline.mergeSVSites.jobMemory": null,
             "dellyGermline.mergeSVSites.timeout": null,
-            "dellyGermline.genotype.mergedBcf": null,
-            "dellyGermline.genotype.inputBam": null,
-            "dellyGermline.genotype.inputBamIndex": null,
-            "dellyGermline.genotype.outputFileNamePrefix": null,
-            "dellyGermline.genotype.modules": null,
-            "dellyGermline.genotype.referenceGenome": null,
-            "dellyGermline.genotype.dellyExclude": null,
-            "dellyGermline.genotype.jobMemory": null,
-            "dellyGermline.genotype.timeout": null,
-            "dellyGermline.mergeSamples.genotypedBcfFiles": null,
-            "dellyGermline.mergeSamples.genotypedBcfIndexes": null,
-            "dellyGermline.mergeSamples.modules": null,
-            "dellyGermline.mergeSamples.jobMemory": null,
-            "dellyGermline.mergeSamples.timeout": null,
-            "dellyGermline.filter.mergedBcf": null,
-            "dellyGermline.filter.modules": null,
-            "dellyGermline.filter.jobMemory": null,
-            "dellyGermline.filter.timeout": null
+            "dellyGermline.svGenotype.mergedBcf": null,
+            "dellyGermline.svGenotype.inputBam": null,
+            "dellyGermline.svGenotype.inputBamIndex": null,
+            "dellyGermline.svGenotype.outputFileNamePrefix": null,
+            "dellyGermline.svGenotype.modules": null,
+            "dellyGermline.svGenotype.referenceGenome": null,
+            "dellyGermline.svGenotype.dellyExclude": null,
+            "dellyGermline.svGenotype.jobMemory": null,
+            "dellyGermline.svGenotype.timeout": null,
+            "dellyGermline.mergeSVSamples.genotypedBcfFiles": null,
+            "dellyGermline.mergeSVSamples.genotypedBcfIndexes": null,
+            "dellyGermline.mergeSVSamples.modules": null,
+            "dellyGermline.mergeSVSamples.jobMemory": null,
+            "dellyGermline.mergeSVSamples.timeout": null,
+            "dellyGermline.svFilter.mergedBcf": null,
+            "dellyGermline.svFilter.modules": null,
+            "dellyGermline.svFilter.jobMemory": null,
+            "dellyGermline.svFilter.timeout": null,
+            "dellyGermline.callCNV.inputBam": null,
+            "dellyGermline.callCNV.inputBamIndex": null,
+            "dellyGermline.callCNV.germlineSVBcf": null,
+            "dellyGermline.callCNV.outputFileNamePrefix": null,
+            "dellyGermline.callCNV.modules": null,
+            "dellyGermline.callCNV.referenceGenome": null,
+            "dellyGermline.callCNV.genomeMap": null,
+            "dellyGermline.callCNV.jobMemory": null,
+            "dellyGermline.callCNV.timeout": null,
+            "dellyGermline.mergeCNVSites.cnvBcfs": null,
+            "dellyGermline.mergeCNVSites.modules": null,
+            "dellyGermline.mergeCNVSites.jobMemory": null,
+            "dellyGermline.mergeCNVSites.timeout": null,
+            "dellyGermline.cnvGenotype.mergedCNVBcf": null,
+            "dellyGermline.cnvGenotype.inputBam": null,
+            "dellyGermline.cnvGenotype.inputBamIndex": null,
+            "dellyGermline.cnvGenotype.outputFileNamePrefix": null,
+            "dellyGermline.cnvGenotype.modules": null,
+            "dellyGermline.cnvGenotype.referenceGenome": null,
+            "dellyGermline.cnvGenotype.genomeMap": null,
+            "dellyGermline.cnvGenotype.jobMemory": null,
+            "dellyGermline.cnvGenotype.timeout": null,
+            "dellyGermline.mergeCNVSamples.genotypedBcfFiles": null,
+            "dellyGermline.mergeCNVSamples.genotypedBcfIndexes": null,
+            "dellyGermline.mergeCNVSamples.modules": null,
+            "dellyGermline.mergeCNVSamples.jobMemory": null,
+            "dellyGermline.mergeCNVSamples.timeout": null,
+            "dellyGermline.cnvFilter.mergedGenoBcf": null,
+            "dellyGermline.cnvFilter.modules": null,
+            "dellyGermline.cnvFilter.jobMemory": null,
+            "dellyGermline.cnvFilter.timeout": null
         },
         "description": "dellyGermline workflow test",
         "engineArguments": {
@@ -113,7 +145,15 @@
         },
         "id": "DESP_Samples",
         "metadata": {
-            "dellyGermline.germlineVcf": {
+            "dellyGermline.germlineSVs": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dellyGermline_DESP_Samples_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "dellyGermline.germlineCNVs": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dellyGermline_DESP_Samples_@JENKINSID@"
@@ -126,7 +166,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/DESP_Samples.metrics.txt",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/2.0.0/DESP_Samples.metrics.txt",
                 "type": "script"
             }
         ]
