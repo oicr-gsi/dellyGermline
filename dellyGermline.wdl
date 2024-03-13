@@ -16,6 +16,7 @@ struct dellyResources {
 workflow dellyGermline {
   input {
     String reference
+    String outputFileNamePrefix
     Array[inputSamples] inputSamples
   }
 
@@ -51,7 +52,8 @@ workflow dellyGermline {
   call mergeSVSites {
     input:
       inputVcfs = inputVcfs,
-      modules = resources[reference].modules
+      modules = resources[reference].modules,
+      outputFileNamePrefix = outputFileNamePrefix
   }
 
 
@@ -76,14 +78,16 @@ workflow dellyGermline {
     input:
       genotypedBcfFiles = svGenotype.genoBcf,
       genotypedBcfIndexes = svGenotype.genoBcfIndex, 
-      modules = resources[reference].modules
+      modules = resources[reference].modules,
+      outputFileNamePrefix = outputFileNamePrefix
   }
 
 
   call svFilter {
     input:
       mergedBcf = mergeSVSamples.mergedBcf,
-      modules = resources[reference].modules
+      modules = resources[reference].modules,
+      outputFileNamePrefix = outputFileNamePrefix
   }
 
 
@@ -106,7 +110,8 @@ workflow dellyGermline {
   call mergeCNVSites {
     input:
       cnvBcfs = callCNV.cnvBcf,
-      modules = resources[reference].modules
+      modules = resources[reference].modules,
+      outputFileNamePrefix = outputFileNamePrefix
   }
 
 
@@ -129,7 +134,8 @@ workflow dellyGermline {
     input:
       genotypedBcfFiles = cnvGenotype.genoCNVBcf,
       genotypedBcfIndexes = cnvGenotype.genoCNVBcfIndex, 
-      modules = resources[reference].modules
+      modules = resources[reference].modules,
+      outputFileNamePrefix = outputFileNamePrefix
   }
 
 
@@ -137,14 +143,15 @@ workflow dellyGermline {
   call cnvFilter {
     input:
       mergedGenoBcf = mergeCNVSamples.mergedBcf,
-      modules = resources[reference].modules
+      modules = resources[reference].modules,
+      outputFileNamePrefix = outputFileNamePrefix
   }
 
 
 
   meta {
     author: "Hannah Driver, Muna Mohamed"
-    email: "hannah.driver@oicr.on.ca, mmohamed@oicr.on.ca"
+    email: "hdriver@oicr.on.ca, mmohamed@oicr.on.ca"
     description: "Joint germline structural variant and copy number variant calling using Delly"
     dependencies: [
       {
@@ -179,6 +186,7 @@ task mergeSVSites{
   input {
     Array[File] inputVcfs
     String modules
+    String outputFileNamePrefix
     Int jobMemory = 12 
     Int timeout = 12
   }
@@ -186,13 +194,14 @@ task mergeSVSites{
   parameter_meta {
     inputVcfs: "Array of vcf files"
     modules: "Modules needed to run Delly"
+    outputFileNamePrefix: "Prefix for output file naming"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
   }
 
   command <<<
     set -eu -o pipefail
-    delly merge -o merged.sites.bcf ~{sep = " " inputVcfs}
+    delly merge -o ~{outputFileNamePrefix}.merged.sites.bcf ~{sep = " " inputVcfs}
   >>>
 
   runtime {
@@ -202,7 +211,7 @@ task mergeSVSites{
   }
 
   output {
-    File mergedBcf = "merged.sites.bcf"
+    File mergedBcf = "~{outputFileNamePrefix}.merged.sites.bcf"
   }
 }
 
@@ -224,7 +233,7 @@ task svGenotype{
     mergedBcf: "Merged bcf file from >=20 unrelated samples"
     inputBam: "Bam file to be genotyped"
     inputBamIndex: "Index file for bam that will be genotyped"
-    outputFileNamePrefix: "Sample ID"
+    outputFileNamePrefix: "Prefix for output file naming"
     modules: "Modules needed to run Delly"
     referenceGenome: "Path to fasta file with genomic assembly"
     dellyExclude: "List of regions to exclude (telomeres and centromeres)"
@@ -255,6 +264,7 @@ task mergeSamples{
     Array[File] genotypedBcfFiles
     Array[File] genotypedBcfIndexes
     String modules
+    String outputFileNamePrefix
     Int jobMemory = 12 
     Int timeout = 12
   }
@@ -263,6 +273,7 @@ task mergeSamples{
     genotypedBcfFiles: "Array of bcf files that have gone through Delly's genotype filter"
     genotypedBcfIndexes: "Array of index files for bcfs that have one through Delly's genotype filter"
     modules: "Modules needed to run Delly"
+    outputFileNamePrefix: "Prefix for output file naming"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
   }
@@ -270,7 +281,7 @@ task mergeSamples{
   command <<<
     set -eu -o pipefail
     #Merge all genotyped samples to get a single vcf/bcf using bcftools merge
-    bcftools merge -m id -O b -o merged.geno.bcf ~{sep = " " genotypedBcfFiles}
+    bcftools merge -m id -O b -o ~{outputFileNamePrefix}.merged.geno.bcf ~{sep = " " genotypedBcfFiles}
   >>>
 
   runtime {
@@ -280,7 +291,7 @@ task mergeSamples{
   }
 
   output {
-    File mergedBcf = "merged.geno.bcf"
+    File mergedBcf = "~{outputFileNamePrefix}.merged.geno.bcf"
   }
 }
 
@@ -289,6 +300,7 @@ task svFilter {
   input {
     File mergedBcf
     String modules
+    String outputFileNamePrefix
     Int jobMemory = 12 
     Int timeout = 12
   }
@@ -296,6 +308,7 @@ task svFilter {
   parameter_meta {
     mergedBcf: "Merged bcf file from >=20 unrelated samples that have gone through Delly's genotype filter"
     modules: "Modules needed to run Delly"
+    outputFileNamePrefix: "Prefix for output file naming"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
   }
@@ -305,9 +318,9 @@ task svFilter {
     #Index
     bcftools index ~{mergedBcf}
     #Merge
-    delly filter -f germline -o germlineSV.bcf ~{mergedBcf}
+    delly filter -f germline -o ~{outputFileNamePrefix}.germlineSV.bcf ~{mergedBcf}
     #Convert to vcf
-    bcftools view -O v -o germlineSV.vcf germlineSV.bcf
+    bcftools view -O v -o ~{outputFileNamePrefix}.germlineSV.vcf ~{outputFileNamePrefix}.germlineSV.bcf
   >>>
 
   runtime {
@@ -317,8 +330,8 @@ task svFilter {
   }
 
   output {
-    File germlineSVVcf = "germlineSV.vcf"
-    File germlineSVBcf = "germlineSV.bcf"
+    File germlineSVVcf = "~{outputFileNamePrefix}.germlineSV.vcf"
+    File germlineSVBcf = "~{outputFileNamePrefix}.germlineSV.bcf"
   }
 }
 
@@ -340,7 +353,7 @@ task callCNV {
     inputBam: "Bam file that will be analysed for copy number variation"
     inputBamIndex: "Index file for bam that will be analysed for copy number variation"
     germlineSVBcf: "Filtered bcf file containing structural variant calls"
-    outputFileNamePrefix: "Sample ID"
+    outputFileNamePrefix: "Prefix for output file naming"
     modules: "Modules needed to run Delly"
     referenceGenome: "Path to fasta file with genomic assembly"
     genomeMap: "Haplotype map file needed to run Delly"
@@ -369,6 +382,7 @@ task mergeCNVSites {
   input {
     Array[File] cnvBcfs
     String modules
+    String outputFileNamePrefix
     Int jobMemory = 12 
     Int timeout = 12
   }
@@ -376,13 +390,14 @@ task mergeCNVSites {
   parameter_meta {
     cnvBcfs: "Array of bcf files obtained by CNV calling for all samples with Delly"
     modules: "Modules needed to run Delly"
+    outputFileNamePrefix: "Prefix for output file naming"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
   }
 
   command <<<
     set -eu -o pipefail
-    delly merge -e -p -o mergedSites.bcf -m 1000 -n 100000 ~{sep = " " cnvBcfs}
+    delly merge -e -p -o ~{outputFileNamePrefix}.mergedSites.bcf -m 1000 -n 100000 ~{sep = " " cnvBcfs}
   >>>
 
   runtime {
@@ -392,7 +407,7 @@ task mergeCNVSites {
   }
 
   output {
-    File mergedCNVBcf = "mergedSites.bcf"
+    File mergedCNVBcf = "~{outputFileNamePrefix}.mergedSites.bcf"
   }
 }
 
@@ -414,7 +429,7 @@ task cnvGenotype {
     mergedCNVBcf: "Merged bcf file obtained from the CNVs of >=20 unrelated samples"
     inputBam: "Bam file to be genotyped"
     inputBamIndex: "Index file for bam that will be genotyped"
-    outputFileNamePrefix: "Sample ID"
+    outputFileNamePrefix: "Prefix for output file naming"
     modules: "Modules needed to run Delly"
     referenceGenome: "Path to fasta file with genomic assembly"
     genomeMap: "Haplotype map file needed to run Delly"
@@ -444,6 +459,7 @@ task cnvFilter {
   input {
     File mergedGenoBcf
     String modules
+    String outputFileNamePrefix
     Int jobMemory = 12 
     Int timeout = 12  
   }
@@ -451,6 +467,7 @@ task cnvFilter {
   parameter_meta {
     mergedGenoBcf: "Bcf file obtained by merging the CNV genotypes from >=20 unrelated samples"
     modules: "Modules needed to run Delly"
+    outputFileNamePrefix: "Prefix for output file naming"
     jobMemory: "Memory allocated for this job"
     timeout: "Timeout in hours, needed to override imposed limits"
   }
@@ -460,9 +477,9 @@ task cnvFilter {
     #Index merged bcf
     bcftools index ~{mergedGenoBcf}
     #Merge
-    delly classify -f germline -o germlineCNVs.bcf ~{mergedGenoBcf}
+    delly classify -f germline -o ~{outputFileNamePrefix}.germlineCNVs.bcf ~{mergedGenoBcf}
     #Convert to vcf
-    bcftools view -O v -o germlineCNVs.vcf germlineCNVs.bcf
+    bcftools view -O v -o ~{outputFileNamePrefix}.germlineCNVs.vcf ~{outputFileNamePrefix}.germlineCNVs.bcf
   >>>
 
   runtime {
@@ -472,6 +489,6 @@ task cnvFilter {
   }
 
   output {
-    File germlineCNVs = "germlineCNVs.vcf"
+    File germlineCNVs = "~{outputFileNamePrefix}.germlineCNVs.vcf"
   }
 }
