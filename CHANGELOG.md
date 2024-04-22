@@ -1,3 +1,5 @@
+## 2.0.2   - 2024-04-22
+ - Adjust resources based on testing needs
 ## 2.0.1   - 2024-03-13
  - Add outputFileNamePrefix for project level naming of outfiles
 ## 2.0.0   - 2024-01-31
