@@ -187,8 +187,8 @@ task mergeSVSites{
     Array[File] inputVcfs
     String modules
     String outputFileNamePrefix
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 8 
+    Int timeout = 4
   }
 
   parameter_meta {
@@ -225,8 +225,8 @@ task svGenotype{
     String modules
     String referenceGenome
     String dellyExclude
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 30 
+    Int timeout = 24
   }
 
   parameter_meta {
@@ -265,8 +265,8 @@ task mergeSamples{
     Array[File] genotypedBcfIndexes
     String modules
     String outputFileNamePrefix
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 8 
+    Int timeout = 4
   }
 
   parameter_meta {
@@ -301,8 +301,8 @@ task svFilter {
     File mergedBcf
     String modules
     String outputFileNamePrefix
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 8 
+    Int timeout = 4
   }
 
   parameter_meta {
@@ -345,8 +345,8 @@ task callCNV {
     String modules
     String referenceGenome
     String genomeMap
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 30 
+    Int timeout = 24
   }
 
   parameter_meta {
@@ -383,8 +383,8 @@ task mergeCNVSites {
     Array[File] cnvBcfs
     String modules
     String outputFileNamePrefix
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 8 
+    Int timeout = 4
   }
 
   parameter_meta {
@@ -421,8 +421,8 @@ task cnvGenotype {
     String modules
     String referenceGenome
     String genomeMap
-    Int jobMemory = 12 
-    Int timeout = 12
+    Int jobMemory = 30 
+    Int timeout = 24
   }
 
   parameter_meta {
@@ -460,8 +460,8 @@ task cnvFilter {
     File mergedGenoBcf
     String modules
     String outputFileNamePrefix
-    Int jobMemory = 12 
-    Int timeout = 12  
+    Int jobMemory = 8 
+    Int timeout = 4  
   }
 
   parameter_meta {
@@ -477,9 +477,9 @@ task cnvFilter {
     #Index merged bcf
     bcftools index ~{mergedGenoBcf}
     #Merge
-    delly classify -f germline -o ~{outputFileNamePrefix}.germlineCNVs.bcf ~{mergedGenoBcf}
+    delly classify -f germline -o ~{outputFileNamePrefix}.germlineCNV.bcf ~{mergedGenoBcf}
     #Convert to vcf
-    bcftools view -O v -o ~{outputFileNamePrefix}.germlineCNVs.vcf ~{outputFileNamePrefix}.germlineCNVs.bcf
+    bcftools view -O v -o ~{outputFileNamePrefix}.germlineCNV.vcf ~{outputFileNamePrefix}.germlineCNV.bcf
   >>>
 
   runtime {
@@ -489,6 +489,6 @@ task cnvFilter {
   }
 
   output {
-    File germlineCNVs = "~{outputFileNamePrefix}.germlineCNVs.vcf"
+    File germlineCNVs = "~{outputFileNamePrefix}.germlineCNV.vcf"
   }
 }

@@ -36,24 +36,24 @@ Parameter|Value|Default|Description
 #### Optional task parameters:
 Parameter|Value|Default|Description
 ---|---|---|---
-`mergeSVSites.jobMemory`|Int|12|Memory allocated for this job
-`mergeSVSites.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`svGenotype.jobMemory`|Int|12|Memory allocated for this job
-`svGenotype.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`mergeSVSamples.jobMemory`|Int|12|Memory allocated for this job
-`mergeSVSamples.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`svFilter.jobMemory`|Int|12|Memory allocated for this job
-`svFilter.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`callCNV.jobMemory`|Int|12|Memory allocated for this job
-`callCNV.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`mergeCNVSites.jobMemory`|Int|12|Memory allocated for this job
-`mergeCNVSites.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`cnvGenotype.jobMemory`|Int|12|Memory allocated for this job
-`cnvGenotype.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`mergeCNVSamples.jobMemory`|Int|12|Memory allocated for this job
-`mergeCNVSamples.timeout`|Int|12|Timeout in hours, needed to override imposed limits
-`cnvFilter.jobMemory`|Int|12|Memory allocated for this job
-`cnvFilter.timeout`|Int|12|Timeout in hours, needed to override imposed limits
+`mergeSVSites.jobMemory`|Int|8|Memory allocated for this job
+`mergeSVSites.timeout`|Int|4|Timeout in hours, needed to override imposed limits
+`svGenotype.jobMemory`|Int|30|Memory allocated for this job
+`svGenotype.timeout`|Int|24|Timeout in hours, needed to override imposed limits
+`mergeSVSamples.jobMemory`|Int|8|Memory allocated for this job
+`mergeSVSamples.timeout`|Int|4|Timeout in hours, needed to override imposed limits
+`svFilter.jobMemory`|Int|8|Memory allocated for this job
+`svFilter.timeout`|Int|4|Timeout in hours, needed to override imposed limits
+`callCNV.jobMemory`|Int|30|Memory allocated for this job
+`callCNV.timeout`|Int|24|Timeout in hours, needed to override imposed limits
+`mergeCNVSites.jobMemory`|Int|8|Memory allocated for this job
+`mergeCNVSites.timeout`|Int|4|Timeout in hours, needed to override imposed limits
+`cnvGenotype.jobMemory`|Int|30|Memory allocated for this job
+`cnvGenotype.timeout`|Int|24|Timeout in hours, needed to override imposed limits
+`mergeCNVSamples.jobMemory`|Int|8|Memory allocated for this job
+`mergeCNVSamples.timeout`|Int|4|Timeout in hours, needed to override imposed limits
+`cnvFilter.jobMemory`|Int|8|Memory allocated for this job
+`cnvFilter.timeout`|Int|4|Timeout in hours, needed to override imposed limits
 
 
 ### Outputs
