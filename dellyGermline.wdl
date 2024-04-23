@@ -477,9 +477,9 @@ task cnvFilter {
     #Index merged bcf
     bcftools index ~{mergedGenoBcf}
     #Merge
-    delly classify -f germline -o ~{outputFileNamePrefix}.germlineCNVs.bcf ~{mergedGenoBcf}
+    delly classify -f germline -o ~{outputFileNamePrefix}.germlineCNV.bcf ~{mergedGenoBcf}
     #Convert to vcf
-    bcftools view -O v -o ~{outputFileNamePrefix}.germlineCNVs.vcf ~{outputFileNamePrefix}.germlineCNVs.bcf
+    bcftools view -O v -o ~{outputFileNamePrefix}.germlineCNV.vcf ~{outputFileNamePrefix}.germlineCNV.bcf
   >>>
 
   runtime {
