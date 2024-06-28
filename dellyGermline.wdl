@@ -170,7 +170,7 @@ workflow dellyGermline {
     ]
     output_meta: {
     germlineSVs: {
-        description: "Filtered vcf file containing PASS structural variant calls",
+        description: "Filtered vcf file containing structural variant calls",
         vidarr_label: "germlineSVs"
     },
     germlineCNVs: {

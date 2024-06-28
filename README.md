@@ -60,7 +60,7 @@ Parameter|Value|Default|Description
 
 Output | Type | Description | Labels
 ---|---|---|---
-`germlineSVs`|File|Filtered vcf file containing PASS structural variant calls|vidarr_label: germlineSVs
+`germlineSVs`|File|Filtered vcf file containing structural variant calls
 `germlineCNVs`|File|Filtered vcf file containing copy number variant calls|vidarr_label: germlineCNVs
 
 
