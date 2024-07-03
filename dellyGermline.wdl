@@ -23,6 +23,7 @@ workflow dellyGermline {
   parameter_meta {
     reference: "The genome reference build. for example: hg19, hg38"
     inputSamples: "Collection of BAM, BAI, and VCF files for >= 20 samples"
+    outputFileNamePrefix: "Output file name prefix, may contain a custom output directory"
   }
 
   Map[String,dellyResources] resources = {
@@ -168,9 +169,15 @@ workflow dellyGermline {
       }
     ]
     output_meta: {
-      germlineSVs: "Filtered vcf file containing PASS structural variant calls",
-      germlineCNVs: "Filtered vcf file containing copy number variant calls"
+    germlineSVs: {
+        description: "Filtered vcf file containing structural variant calls",
+        vidarr_label: "germlineSVs"
+    },
+    germlineCNVs: {
+        description: "Filtered vcf file containing copy number variant calls",
+        vidarr_label: "germlineCNVs"
     }
+}
   }
 
 
