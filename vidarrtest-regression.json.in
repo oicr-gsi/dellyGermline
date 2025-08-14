@@ -174,7 +174,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/output_metrics/2.0.0/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
