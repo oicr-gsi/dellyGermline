@@ -11,10 +11,10 @@
                 {
                     "bam": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test01.filter.deduped.realigned.recalibrated.bam",
                             "externalIds": [
                                 {
-                                    "id": "DESP_00023",
+                                    "id": "DESP_Test01",
                                     "provider": "TEST"
                                 }
                             ]
@@ -23,10 +23,10 @@
                     },
                     "bai": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test01.filter.deduped.realigned.recalibrated.bai",
                             "externalIds": [
                                 {
-                                    "id": "DESP_00023",
+                                    "id": "DESP_Test01",
                                     "provider": "TEST"
                                 }
                             ]
@@ -35,10 +35,10 @@
                     },
                     "vcf": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00023_Ly_R_EX_DS-ED23.filter.deduped.realigned.recalibrated.vcf",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test01.filter.deduped.realigned.recalibrated.vcf",
                             "externalIds": [
                                 {
-                                    "id": "DESP_00023",
+                                    "id": "DESP_Test01",
                                     "provider": "TEST"
                                 }
                             ]
@@ -49,10 +49,10 @@
                 {
                     "bam": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test02.filter.deduped.realigned.recalibrated.bam",
                             "externalIds": [
                                 {
-                                    "id": "DESP_00353",
+                                    "id": "DESP_Test02",
                                     "provider": "TEST"
                                 }
                             ]
@@ -61,10 +61,10 @@
                     },
                     "bai": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test02.filter.deduped.realigned.recalibrated.bai",
                             "externalIds": [
                                 {
-                                    "id": "DESP_00353",
+                                    "id": "DESP_Test02",
                                     "provider": "TEST"
                                 }
                             ]
@@ -73,10 +73,10 @@
                     },
                     "vcf": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/Input_Data/DESP_00353_Ly_R_EX_PGAR353.filter.deduped.realigned.recalibrated.vcf",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test02.filter.deduped.realigned.recalibrated.vcf",
                             "externalIds": [
                                 {
-                                    "id": "DESP_00353",
+                                    "id": "DESP_Test02",
                                     "provider": "TEST"
                                 }
                             ]
@@ -174,7 +174,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/2.0.0/DESP_Samples.metrics.txt",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dellyGermline/output_metrics/2.0.0/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
