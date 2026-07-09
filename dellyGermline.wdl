@@ -38,6 +38,12 @@ workflow dellyGermline {
       "referenceGenome": "$HG38_ROOT/hg38_random.fa",
       "dellyExclude": "$HG38_DELLY_ROOT/human.hg38.excl.tsv",
       "genomeMap": "$HG38_MAPPABILITY_MAP_ROOT/Homo_sapiens.GRCh38.dna.primary_assembly.fa.r101.s501.blacklist.gz"
+    },
+    "hg38_noAlt": {
+      "modules": "delly/0.9.1 bcftools/1.9 tabix/0.2.6 hg38-noalt/p12 hg38-delly/1.0 hg38-mappability-map/1.0",
+      "referenceGenome": "$HG38_NOALT_ROOT/hg38_noAlt.fa",
+      "dellyExclude": "$HG38_DELLY_ROOT/human.hg38.excl.tsv",
+      "genomeMap": "$HG38_MAPPABILITY_MAP_ROOT/Homo_sapiens.GRCh38.dna.primary_assembly.fa.r101.s501.blacklist.gz"
     }
   }   
 
