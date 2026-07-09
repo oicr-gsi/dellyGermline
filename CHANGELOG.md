@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [GRD-797](https://jira.oicr.on.ca/browse/GRD-797) - add vidarr labels to outputs (changes to medata only)
 
-## [2.1.0] - 2026-07-09
+## [2.0.3] - 2026-07-09
 ### Added
 - [GRD-1175](https://jira.oicr.on.ca/browse/GRD-1175) - Added noAlt reference support 
 
