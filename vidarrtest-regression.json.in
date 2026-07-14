@@ -191,7 +191,7 @@
                 {
                     "bam": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/Test_01_noAlt.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test01_noAlt.bam",
                             "externalIds": [
                                 {
                                     "id": "DESP_Test01_noAlt",
@@ -203,7 +203,7 @@
                     },
                     "bai": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/Test_01_noAlt.bam.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test01_noAlt.bam.bai",
                             "externalIds": [
                                 {
                                     "id": "DESP_Test01_noAlt",
@@ -215,7 +215,7 @@
                     },
                     "vcf": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/Test_01_noAlt.vcf",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test01_noAlt.vcf",
                             "externalIds": [
                                 {
                                     "id": "DESP_Test01_noAlt",
@@ -229,7 +229,7 @@
                 {
                     "bam": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/Test_02_noAlt.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test02_noAlt.bam",
                             "externalIds": [
                                 {
                                     "id": "DESP_Test02_noAlt",
@@ -241,7 +241,7 @@
                     },
                     "bai": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/Test_02_noAlt.bam.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test02_noAlt.bam.bai",
                             "externalIds": [
                                 {
                                     "id": "DESP_Test02_noAlt",
@@ -253,7 +253,7 @@
                     },
                     "vcf": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/Test_02_noAlt.vcf",
+                            "configuration": "/.mounts/labs/gsi/testdata/dellyGermline/test_inputs/DESP_Test02_noAlt.vcf",
                             "externalIds": [
                                 {
                                     "id": "DESP_Test02_noAlt",
