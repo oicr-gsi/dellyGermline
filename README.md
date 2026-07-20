@@ -23,7 +23,7 @@ java -jar cromwell.jar run dellyGermline.wdl --inputs inputs.json
 #### Required workflow parameters:
 Parameter|Value|Description
 ---|---|---
-`reference`|String|The genome reference build. for example: hg19, hg38
+`reference`|String|The genome reference build. for example: hg19, hg38, hg38_noAlt
 `outputFileNamePrefix`|String|Output file name prefix, may contain a custom output directory
 `inputSamples`|Array[inputSamples]|Collection of BAM, BAI, and VCF files for >= 20 samples
 
